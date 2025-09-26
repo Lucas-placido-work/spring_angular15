@@ -55,4 +55,10 @@ public class LendService {
     public List<Lend> listarLends() {
         return lendRepository.findAll();
     }
+
+
+    public List<Lend> findAll() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    }
 }

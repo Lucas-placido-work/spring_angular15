@@ -1,7 +1,7 @@
 package com.lucas.back.controller;
 
 import com.lucas.back.entity.Employee;
-import com.lucas.back.repository.EmployeeRepository;
+import com.lucas.back.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,21 +13,21 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EmployeeController {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
     @GetMapping
     public List<Employee> findAll() {
-        return employeeRepository.findAll();
+        return employeeService.findAll();
     }
 
     @PostMapping
     public Employee create(@RequestBody Employee employee) {
-        return employeeRepository.save(employee);
+        return employeeService.save(employee);
     }
 
     @GetMapping("/{id}")
     public Employee findById(@PathVariable Long id) {
-        Optional<Employee> employee = employeeRepository.findById(id);
+        Optional<Employee> employee = employeeService.findById(id);
         if (employee.isEmpty()) {
             throw new RuntimeException("Funcionário não encontrado");
         }
@@ -36,6 +36,6 @@ public class EmployeeController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        employeeRepository.deleteById(id);
+        employeeService.deleteById(id);
     }
 }

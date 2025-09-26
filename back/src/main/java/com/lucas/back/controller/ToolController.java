@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lucas.back.entity.Tool;
-import com.lucas.back.repository.ToolRepository;
+import com.lucas.back.service.ToolService;
 
 import lombok.AllArgsConstructor;
 
@@ -21,31 +21,27 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ToolController {
 
-  private final ToolRepository toolRepository;
+  private final ToolService toolService;
 
   @GetMapping
   public List<Tool> list() {
     List<Tool> listTools = new ArrayList<Tool>();
-    toolRepository.findAll().forEach(listTools::add);
+    toolService.findAll().forEach(listTools::add);
     return listTools;
   } 
 
   @PostMapping
-  public Tool create(@RequestBody Tool tool) {
-      if(tool == null) {
-          throw new RuntimeException("Ferramenta está vazia");
-      }
-      return toolRepository.save(tool);
+  public void create(@RequestBody Tool tool) {
+      toolService.save(tool);
   }
 
   @GetMapping("/{id}")
   public Tool findById(@PathVariable Long id) {
-      return toolRepository.findById(id)
-              .orElseThrow(() -> new RuntimeException("Ferramenta não encontrada"));
+      return toolService.findById(id);
   }
 
   @DeleteMapping("/{id}")
   public void delete(@PathVariable Long id) {
-      toolRepository.deleteById(id);
+      toolService.deleteById(id);
   }
 }

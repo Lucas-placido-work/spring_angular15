@@ -1,7 +1,6 @@
 package com.lucas.back.controller;
 
 import com.lucas.back.entity.Lend;
-import com.lucas.back.repository.LendRepository;
 import com.lucas.back.service.LendService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +13,10 @@ import java.util.List;
 public class LendController {
 
     private final LendService lendService;
-    private final LendRepository lendRepository;
 
     @GetMapping
     public List<Lend> findAll() {
-        return lendRepository.findAll();
+        return lendService.findAll();
     }
 
     @PostMapping

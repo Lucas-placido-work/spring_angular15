@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -27,11 +26,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public Employee findById(@PathVariable Long id) {
-        Optional<Employee> employee = employeeService.findById(id);
-        if (employee.isEmpty()) {
-            throw new RuntimeException("Funcionário não encontrado");
-        }
-        return employee.get();
+        return employeeService.findById(id);
     }
 
     @DeleteMapping("/{id}")
